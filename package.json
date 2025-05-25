@@ -1,0 +1,20 @@
+{
+  "name": "wot-tutorial",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:coffee": "node task_2/coffee-machine.js",
+    "start:motion": "node task_2/mashup/motion-sensor.js",
+    "start:mashup": "node task_2/mashup/mashup.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@node-wot/binding-coap": "^0.9.1",
+    "@node-wot/binding-http": "^0.9.1",
+    "@node-wot/core": "^0.9.1"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "name": { "type": "string" },
+    "male": { "type": "boolean" },
+    "age": { "type": "number" },
+    "language": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "programming": {
+      "type": "object",
+      "properties": {
+        "frontend": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "backend": { "type": "string" }
+      },
+      "required": ["frontend", "backend"]
+    }
+  },
+  "required": ["name", "male", "age", "language", "programming"]
+}

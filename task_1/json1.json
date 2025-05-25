@@ -1,0 +1,16 @@
+{
+    "name": "Manu Dev",
+    "male": true,
+    "age": 23,
+    "language": [
+        "hindi",
+        "english"
+    ],
+    "programming": {
+        "frontend": [
+            "html",
+            "css"
+        ],
+        "backend": "javascript"
+    }
+}

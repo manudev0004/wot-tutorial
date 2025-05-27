@@ -1,24 +1,32 @@
 // This code creates a simple motion sensor Thing using Node-WoT.
 const { Servient } = require("@node-wot/core");
-const HttpClient = require("@node-wot/binding-http").HttpClient;
+const HttpClientFactory = require("@node-wot/binding-http").HttpClientFactory;
+const { fetch } = require("undici");
 
 const servient = new Servient();
-servient.addClientFactory(new HttpClient());
+servient.addClientFactory(new HttpClientFactory());
+
+async function fetchTD(url) {
+  const res = await fetch(url);
+  const text = await res.text();
+  return JSON.parse(text);
+}
 
 servient.start().then(async (WoT) => {
-  const motionTD = await WoT.fetch("http://localhost:8889/");
+  const motionTD = await fetchTD("http://localhost:8889/motionsensor");
   const motionSensor = await WoT.consume(motionTD);
 
-  const coffeeTD = await WoT.fetch("http://localhost:8888/");
+  const coffeeTD = await fetchTD("http://localhost:8888/coffeemachine");
   const coffeeMachine = await WoT.consume(coffeeTD);
 
   console.log("Mashup started...");
 
   setInterval(async () => {
     const motion = await motionSensor.readProperty("motion");
-    if (motion === true) {
+    const value = await motion.value();
+    if (value === true) {
       console.log("Motion detected. Brewing coffee...");
-      await coffeeMachine.invokeAction("brewCoffee", { type: "espresso" });
+      await coffeeMachine.invokeAction("brewCoffee", "espresso");
     } else {
       console.log("No motion.");
     }
